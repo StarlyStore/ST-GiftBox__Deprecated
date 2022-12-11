@@ -76,7 +76,6 @@ public class GiftBoxGUI {
          */
 
 
-
         for (ItemStack items : materials) {
             if (slot == 45) {
                 break;
@@ -144,13 +143,6 @@ public class GiftBoxGUI {
 
         currentPage += 1;
 
-        if (currentPage != totalPage) {
-
-            previous(); //이전 버튼 추가
-
-        } else {
-            clearItem(NEXT_PAGE_SLOT);
-        }
         update(player);
     }
 

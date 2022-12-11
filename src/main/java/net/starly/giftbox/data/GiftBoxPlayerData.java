@@ -37,7 +37,13 @@ public class GiftBoxPlayerData {
 
     public void addItem(Player player, ItemStack itemStack) {
         List<ItemStack> items = getItemStacks();
-        items.add(itemStack);
+        if (!items.isEmpty()) {
+            items.add(itemStack);
+        } else {
+            items = new ArrayList<>();
+            items.add(itemStack);
+        }
+
         config.getConfig().set(path, items);
         config.saveConfig();
         player.sendMessage("架 §6" + this.offlinePlayer.getName() + "§f님에게 성공적으로 §6아이템§f을 §a보냈습니다!");
