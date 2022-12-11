@@ -1,0 +1,7 @@
+name: GiftBox
+main: net.starly.giftbox.GiftBoxMain
+version: 1.0
+api-version: 1.13
+author: SkyExcel
+commands:
+  선물함:

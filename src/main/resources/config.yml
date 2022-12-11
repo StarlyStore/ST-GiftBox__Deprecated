@@ -1,0 +1,16 @@
+prefix: "&6[알림] &r"
+
+
+# 메세지
+messages:
+
+  # 보상을 받았을 때
+  reward: "§6아이템§f을 §a수령§f하였습니다."
+
+  # 인벤토리가 가득 찼을 때
+  inventory-full: "§c인벤토리가 가득 찼습니다."
+
+  # 권한이 없을 때
+  no-permission: "§c권한이 없습니다."
+
+  no-item: "§c아이템이 없습니다."

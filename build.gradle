@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'net.starly.cosmetic'
+group 'net.starly.giftbox'
 version '1.0'
 
 repositories {
@@ -22,11 +22,17 @@ dependencies {
 
     // OTHER DEPENDENCIES
     compileOnly "net.skyexcel.core:SkyExcelCore:1.0"
-    compileOnly "com.arcaniax:HeadDatabase-API:1.3.1"
+    implementation group: 'com.google.guava', name: 'guava', version: '11.0.2'
+
 }
 
 compileJava.options.encoding = 'UTF-8'
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+
+jar {
+    destinationDirectory.set(file('D:\\Project\\minecraft\\Commission\\Servers\\1.19.2\\plugins'))
 }
