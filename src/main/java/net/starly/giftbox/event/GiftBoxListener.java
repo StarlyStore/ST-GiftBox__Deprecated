@@ -17,7 +17,7 @@ public class GiftBoxListener implements Listener {
                 GiftBoxGUI giftBoxGUI = GiftBoxData.giftBoxGUIHashMap.get(player.getUniqueId());
 
                 if (slot == giftBoxGUI.getNEXT_PAGE_SLOT()) { // 다음 페이지 클릭
-                    giftBoxGUI.nextPage();
+                    giftBoxGUI.nextPage(player);
                 } else if (slot == giftBoxGUI.getPREVIOUS_PAGE_SLOT()) { // 다음 페이지 클릭
                     giftBoxGUI.previousPage(player, event.isShiftClick());
                 } else if (slot == 49) {

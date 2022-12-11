@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import skyexcel.data.file.Config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GiftBoxPlayerData {
@@ -26,7 +27,6 @@ public class GiftBoxPlayerData {
     }
 
 
-
     public void removeItem() {
         if (!itemStacks.isEmpty()) {
             itemStacks.remove(0);
@@ -36,8 +36,9 @@ public class GiftBoxPlayerData {
     }
 
     public void addItem(Player player, ItemStack itemStack) {
-        itemStacks.add(itemStack);
-        config.getConfig().set(path, itemStacks);
+        List<ItemStack> items = getItemStacks();
+        items.add(itemStack);
+        config.getConfig().set(path, items);
         config.saveConfig();
         player.sendMessage("架 §6" + this.offlinePlayer.getName() + "§f님에게 성공적으로 §6아이템§f을 §a보냈습니다!");
 
@@ -49,6 +50,8 @@ public class GiftBoxPlayerData {
      */
 
     public List<ItemStack> getItemStacks() {
-        return (List<ItemStack>) (config.getConfig().get(path));
+        if (config != null)
+            return (List<ItemStack>) (config.getConfig().get(path) == null ? List.of() : config.getConfig().get(path));
+        return new ArrayList<>();
     }
 }

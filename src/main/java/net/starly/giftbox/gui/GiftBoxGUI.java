@@ -51,6 +51,7 @@ public class GiftBoxGUI {
 
         int divide = 36;
 
+
         this.totalPage = materials.size() / divide;
         if (inv == null) {
             totalPage += 1;
@@ -74,7 +75,7 @@ public class GiftBoxGUI {
          * 이후 i가 현제 페이지와 44를 곱한 값보다 작거나 같을때 i값을 계속 더해준다. (materialList의 값을 불러오기 위함.),
          */
 
-        int i = (currentPage - 1) * divide;
+
 
         for (ItemStack items : materials) {
             if (slot == 45) {
@@ -139,7 +140,9 @@ public class GiftBoxGUI {
     }
 
 
-    public void nextPage() {
+    public void nextPage(Player player) {
+
+        currentPage += 1;
 
         if (currentPage != totalPage) {
 
@@ -148,7 +151,7 @@ public class GiftBoxGUI {
         } else {
             clearItem(NEXT_PAGE_SLOT);
         }
-
+        update(player);
     }
 
     public void previousPage(Player player, boolean isShift) {
