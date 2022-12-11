@@ -1,6 +1,7 @@
 package net.starly.giftbox;
 
 import net.starly.giftbox.cmd.GiftBoxCmd;
+import net.starly.giftbox.cmd.GiftBoxTab;
 import net.starly.giftbox.event.GiftBoxListener;
 import org.bukkit.Bukkit;
 
@@ -18,6 +19,7 @@ public class GiftBoxMain extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         getCommand("선물함").setExecutor(new GiftBoxCmd());
+        getCommand("선물함").setTabCompleter(new GiftBoxTab());
         Bukkit.getPluginManager().registerEvents(new GiftBoxListener(), this);
         config = new Config("config");
         config.setPlugin(this);

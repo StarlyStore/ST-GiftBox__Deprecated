@@ -1,6 +1,7 @@
 package net.starly.giftbox.data;
 
 import net.starly.giftbox.GiftBoxMain;
+import net.starly.giftbox.util.StringData;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -46,7 +47,10 @@ public class GiftBoxPlayerData {
 
         config.getConfig().set(path, items);
         config.saveConfig();
-        player.sendMessage("架 §6" + this.offlinePlayer.getName() + "§f님에게 성공적으로 §6아이템§f을 §a보냈습니다!");
+        player.sendMessage(StringData.prefix() + StringData.sendItem(offlinePlayer));
+        if (offlinePlayer.isOnline()) {
+            offlinePlayer.getPlayer().sendMessage(StringData.prefix() + StringData.getItem());
+        }
 
     }
 

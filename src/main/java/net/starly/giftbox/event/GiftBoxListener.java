@@ -19,7 +19,7 @@ public class GiftBoxListener implements Listener {
                 if (slot == giftBoxGUI.getNEXT_PAGE_SLOT()) { // 다음 페이지 클릭
                     giftBoxGUI.nextPage(player);
                 } else if (slot == giftBoxGUI.getPREVIOUS_PAGE_SLOT()) { // 다음 페이지 클릭
-                    giftBoxGUI.previousPage(player, event.isShiftClick());
+                    giftBoxGUI.previousPage(player);
                 } else if (slot == 49) {
                     giftBoxGUI.select(player);
                 }

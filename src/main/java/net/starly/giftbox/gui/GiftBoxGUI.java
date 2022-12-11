@@ -58,22 +58,12 @@ public class GiftBoxGUI {
             inv = Bukkit.createInventory(null, 54, title + " (" + currentPage + "/" + totalPage + ")");
         }
 
-
-        List.of(0, 1, 2, 3, 5, 6, 7, 8).forEach(i -> {
-            inv.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1));
-        });
-
-        Items.newItem("선물함", Material.CHEST, 1, List.of("현제 : " + materials.size()), 4, inv);
         if (currentPage != totalPage)
             next(); // 다음 버튼 추가
 
         int slot = 9;
-        Items.newItem("모두 수령", Material.END_CRYSTAL, 1, List.of("§7아이템을 우클릭하여 아이템을 수령하세요!"), 49, inv);
 
-        /**
-         * i = 현제 페이지에서 1을 제거 후, 44를 곱한다.(처음 페이지를 인식 하기 위함. (0일경우))
-         * 이후 i가 현제 페이지와 44를 곱한 값보다 작거나 같을때 i값을 계속 더해준다. (materialList의 값을 불러오기 위함.),
-         */
+        defaultGUI();
 
 
         for (ItemStack items : materials) {
@@ -84,91 +74,92 @@ public class GiftBoxGUI {
             slot++;
 
         }
-        setInv(inv);
+
+
         player.openInventory(inv);
     }
 
 
     public void select(Player player) {
-//        player.sendMessage(ChatColor.GREEN + "아이템을 성공적으로 수령하였습니다.");
 
-        if (!materials.isEmpty()) {
-            if (isInventoryFull(player)) {
-                player.sendMessage("§c인벤토리가 가득 찼습니다.");
-            } else {
-                int divide = 36;
-
-
-                player.getInventory().addItem(materials.get(0));
-                giftBoxPlayerData.removeItem();
-                player.sendMessage(StringData.reward());
-                int slot = 9;
-                inv.clear();
-                this.totalPage = materials.size() / divide;
-                if (currentPage != totalPage)
-                    next(); // 다음 버튼 추가
-
-                if (inv == null) {
-                    totalPage += 1;
-                    inv = Bukkit.createInventory(null, 54, title + " (" + currentPage + "/" + totalPage + ")");
-                }
+        if (currentPage == 1) {
+            if (!materials.isEmpty()) {
+                if (isInventoryFull(player)) {
+                    player.sendMessage(StringData.prefix() + StringData.inventoryFull());
+                } else {
+                    int divide = 36;
 
 
-                List.of(0, 1, 2, 3, 5, 6, 7, 8).forEach(i -> {
-                    inv.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1));
-                });
+                    player.getInventory().addItem(materials.get(0));
+                    giftBoxPlayerData.removeItem();
+                    player.sendMessage(StringData.prefix() + StringData.reward());
 
-                Items.newItem("선물함", Material.CHEST, 1, List.of("현제 : " + materials.size()), 4, inv);
+                    inv.clear();
+                    defaultGUI();
+                    this.totalPage = materials.size() / divide;
 
-                for (ItemStack items : materials) {
-                    if (slot == 45) {
-                        break;
+                    if (inv == null) {
+                        totalPage += 1;
+                        inv = Bukkit.createInventory(null, 54, title + " (" + currentPage + "/" + totalPage + ")");
                     }
-                    inv.setItem(slot, items);
-                    slot++;
+                    int i = 0;
 
+                    for (ItemStack itemStack : materials) {
+                        i++;
+
+                        if (currentPage != 1 && i <= (currentPage - 1) * 36) continue;
+                        if (i > currentPage * 36) break;
+
+                        inv.addItem(itemStack);
+                    }
                 }
-
-
-                Items.newItem("모두 수령", Material.END_CRYSTAL, 1, List.of("§7아이템을 우클릭하여 아이템을 수령하세요!"), 49, inv);
-
+            } else {
+                player.sendMessage(StringData.prefix() + StringData.noItem());
             }
-        } else {
-            player.sendMessage(StringData.noItem());
         }
     }
 
 
     public void nextPage(Player player) {
 
-        currentPage += 1;
+        if (totalPage != currentPage) {
+            InventoryUpdate.updateInventory(GiftBoxMain.getPlugin(), player, title + " (" + ++currentPage + "/" + totalPage + ")");
+            inv.clear();
+            defaultGUI();
 
-        update(player);
-    }
+            int i = 0;
 
-    public void previousPage(Player player, boolean isShift) {
 
-        if (!isShift) {
-            InventoryUpdate.updateInventory(GiftBoxMain.getPlugin(), player, title + " (" + --currentPage + "/" + totalPage + ")");
-            update(player);
+            for (ItemStack itemStack : materials) {
+                i++;
 
-            if (currentPage != 1) {
-                previous(); //이전 버튼 추가
-            } else {
-                clearItem(PREVIOUS_PAGE_SLOT);
-            }
-        } else {
-            currentPage = 1;
-            InventoryUpdate.updateInventory(GiftBoxMain.getPlugin(), player, title + " (" + currentPage + "/" + totalPage + ")");
-            update(player);
+                if (currentPage != 1 && i <= (currentPage - 1) * 36) continue;
+                if (i > currentPage * 36) break;
 
-            if (currentPage != 1) {
-                previous(); //이전 버튼 추가
-            } else {
-                clearItem(PREVIOUS_PAGE_SLOT);
+                inv.addItem(itemStack);
             }
         }
+    }
 
+    public void previousPage(Player player) {
+
+        if (currentPage != 1) {
+            InventoryUpdate.updateInventory(GiftBoxMain.getPlugin(), player, title + " (" + --currentPage + "/" + totalPage + ")");
+            inv.clear();
+            defaultGUI();
+
+            int i = 0;
+
+
+            for (ItemStack itemStack : materials) {
+                i++;
+
+                if (currentPage != 1 && i <= (currentPage - 1) * 36) continue;
+                if (i > currentPage * 36) break;
+
+                inv.addItem(itemStack);
+            }
+        }
     }
 
     private void next() {
@@ -186,6 +177,24 @@ public class GiftBoxGUI {
     }
 
 
+    private void defaultGUI() {
+
+        Items.newItem("선물함", Material.CHEST, 1, List.of("현제 : " + materials.size()), 4, inv);
+        Items.newItem("모두 수령", Material.END_CRYSTAL, 1, List.of("§7아이템을 우클릭하여 아이템을 수령하세요!"), 49, inv);
+
+
+        List.of(0, 1, 2, 3, 5, 6, 7, 8, 45, 46, 47, 51, 52, 53).forEach(i -> {
+            inv.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1));
+        });
+
+        if (currentPage > 1) {
+            previous();
+        }
+        if (currentPage != totalPage)
+            next(); // 다음 버튼 추가
+
+    }
+
     public int getPREVIOUS_PAGE_SLOT() {
         return PREVIOUS_PAGE_SLOT;
     }
@@ -199,6 +208,19 @@ public class GiftBoxGUI {
         this.inv = inv;
     }
 
+
+    /**
+     * @return 인벤토리에 아이템이 존재하는지 확인.
+     */
+    public List<ItemStack> getItems() {
+        List<ItemStack> itemStacks = new ArrayList<>();
+        for (int i = 9; i < 36; i++) {
+            if (inv.getItem(i) != null) {
+                itemStacks.add(inv.getItem(i));
+            }
+        }
+        return itemStacks;
+    }
 
     private boolean isInventoryFull(Player p) {
         int slot = p.getInventory().firstEmpty();

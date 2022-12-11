@@ -3,6 +3,7 @@ package net.starly.giftbox.cmd;
 import net.starly.giftbox.data.GiftBoxData;
 import net.starly.giftbox.data.GiftBoxPlayerData;
 import net.starly.giftbox.gui.GiftBoxGUI;
+import net.starly.giftbox.util.StringData;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -19,17 +20,23 @@ public class GiftBoxCmd implements CommandExecutor {
         if (sender instanceof Player player) {
             if (args.length > 0) {
                 if ("보내기".equalsIgnoreCase(args[0])) {
+                    if (player.isOp() || player.hasPermission("giftbox.use")) {
+                        ItemStack itemStack = player.getInventory().getItemInMainHand();
+                        if (!itemStack.getType().equals(Material.AIR)) {
+                            if (args.length > 1) {
 
-                    ItemStack itemStack = player.getInventory().getItemInMainHand();
-                    if (!itemStack.getType().equals(Material.AIR)) {
-                        if (args.length > 1) {
+                                OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
+                                GiftBoxPlayerData giftBox = new GiftBoxPlayerData(target);
 
-                            OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-                            GiftBoxPlayerData giftBox = new GiftBoxPlayerData(target);
-
-                            giftBox.addItem(player, itemStack);
+                                giftBox.addItem(player, itemStack);
+                            }
+                        } else {
+                            player.sendMessage(StringData.prefix() + StringData.noHandItem());
                         }
+                    } else {
+                        player.sendMessage(StringData.prefix() + StringData.noPermission());
                     }
+
                 } else if ("보기".equalsIgnoreCase(args[0])) {
                     if (args.length > 1) {
                         OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
