@@ -2,14 +2,13 @@ package net.starly.giftbox.util;
 
 import net.starly.giftbox.GiftBoxMain;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
-public class StringData {
-
-
-    public static String getPrefix() {
-        return color(GiftBoxMain.config.getString("prefix"));
+public class MessageUtil {
+    private static String getPrefix() {
+        return GiftBoxMain.config.getString("prefix");
     }
+
 
     public static String getReceivedItem() {
         return color(GiftBoxMain.config.getString("messages.received_item"));
@@ -27,9 +26,9 @@ public class StringData {
         return color(GiftBoxMain.config.getString("messages.no_item_in_giftbox"));
     }
 
-    public static String getItemSent(OfflinePlayer target) {
+    public static String getItemSent(Player target) {
         return color(GiftBoxMain.config.getString("messages.item_sent"))
-                .replace("{target}", target.getPlayer().getDisplayName());
+                .replace("{target}", target.getDisplayName());
     }
 
     public static String getHasItemInGiftBox() {
@@ -40,7 +39,15 @@ public class StringData {
         return color(GiftBoxMain.config.getString("messages.no_item_in_hand"));
     }
 
+    public static String getWrongCommand() {
+        return color(GiftBoxMain.config.getString("messages.wrong_command"));
+    }
+
+    public static String getNoPlayer() {
+        return color(GiftBoxMain.config.getString("messages.no_player"));
+    }
+
     private static String color(String msg) {
-        return ChatColor.translateAlternateColorCodes('&', msg);
+        return ChatColor.translateAlternateColorCodes('&', getPrefix() + msg);
     }
 }

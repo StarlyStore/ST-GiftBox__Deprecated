@@ -1,7 +1,7 @@
 package net.starly.giftbox.data;
 
 import net.starly.giftbox.GiftBoxMain;
-import net.starly.giftbox.util.StringData;
+import net.starly.giftbox.util.MessageUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -47,11 +47,10 @@ public class PlayerGiftBoxData {
 
         config.getConfig().set(path, items);
         config.saveConfig();
-        player.sendMessage(StringData.getPrefix() + StringData.getItemSent(offlinePlayer));
+        player.sendMessage(MessageUtil.getItemSent(offlinePlayer.getPlayer()));
         if (offlinePlayer.isOnline()) {
-            offlinePlayer.getPlayer().sendMessage(StringData.getPrefix() + StringData.getHasItemInGiftBox());
+            offlinePlayer.getPlayer().sendMessage(MessageUtil.getHasItemInGiftBox());
         }
-
     }
 
     /***

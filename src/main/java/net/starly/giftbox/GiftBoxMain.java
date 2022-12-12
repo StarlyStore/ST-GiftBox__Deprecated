@@ -1,7 +1,7 @@
 package net.starly.giftbox;
 
 import net.starly.giftbox.cmd.GiftBoxCmd;
-import net.starly.giftbox.cmd.GiftBoxTab;
+import net.starly.giftbox.cmd.GiftBoxTabComplete;
 import net.starly.giftbox.event.GiftBoxListener;
 import org.bukkit.Bukkit;
 
@@ -21,7 +21,7 @@ public class GiftBoxMain extends JavaPlugin {
 
         //Command
         Bukkit.getPluginCommand("선물함").setExecutor(new GiftBoxCmd());
-        Bukkit.getPluginCommand("선물함").setTabCompleter(new GiftBoxTab());
+        Bukkit.getPluginCommand("선물함").setTabCompleter(new GiftBoxTabComplete());
 
         //Listener
         Bukkit.getPluginManager().registerEvents(new GiftBoxListener(), plugin);
