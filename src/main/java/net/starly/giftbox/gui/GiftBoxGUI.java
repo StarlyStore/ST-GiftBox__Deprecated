@@ -84,14 +84,14 @@ public class GiftBoxGUI {
         if (currentPage == 1) {
             if (!materials.isEmpty()) {
                 if (isInventoryFull(player)) {
-                    player.sendMessage(StringData.prefix() + StringData.inventoryFull());
+                    player.sendMessage(StringData.getPrefix() + StringData.getInventoryIsFull());
                 } else {
                     int divide = 36;
 
 
                     player.getInventory().addItem(materials.get(0));
                     playerGiftBoxData.removeItem();
-                    player.sendMessage(StringData.prefix() + StringData.reward());
+                    player.sendMessage(StringData.getPrefix() + StringData.getReceivedItem());
 
                     inv.clear();
                     defaultGUI();
@@ -113,7 +113,7 @@ public class GiftBoxGUI {
                     }
                 }
             } else {
-                player.sendMessage(StringData.prefix() + StringData.noItem());
+                player.sendMessage(StringData.getPrefix() + StringData.getNoItemInGiftBox());
             }
         }
     }

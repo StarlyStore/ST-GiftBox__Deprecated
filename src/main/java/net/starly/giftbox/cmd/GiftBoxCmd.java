@@ -31,10 +31,10 @@ public class GiftBoxCmd implements CommandExecutor {
                                 giftBox.addItem(player, itemStack);
                             }
                         } else {
-                            player.sendMessage(StringData.prefix() + StringData.noHandItem());
+                            player.sendMessage(StringData.getPrefix() + StringData.getNoItemInHand());
                         }
                     } else {
-                        player.sendMessage(StringData.prefix() + StringData.noPermission());
+                        player.sendMessage(StringData.getPrefix() + StringData.getNoPermission());
                     }
 
                 } else if ("보기".equalsIgnoreCase(args[0])) {

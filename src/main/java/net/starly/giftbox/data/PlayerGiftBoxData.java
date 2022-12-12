@@ -47,9 +47,9 @@ public class PlayerGiftBoxData {
 
         config.getConfig().set(path, items);
         config.saveConfig();
-        player.sendMessage(StringData.prefix() + StringData.sendItem(offlinePlayer));
+        player.sendMessage(StringData.getPrefix() + StringData.getItemSent(offlinePlayer));
         if (offlinePlayer.isOnline()) {
-            offlinePlayer.getPlayer().sendMessage(StringData.prefix() + StringData.getItem());
+            offlinePlayer.getPlayer().sendMessage(StringData.getPrefix() + StringData.getHasItemInGiftBox());
         }
 
     }

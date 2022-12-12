@@ -7,39 +7,40 @@ import org.bukkit.OfflinePlayer;
 public class StringData {
 
 
-    public static String prefix() {
-        return translate(GiftBoxMain.config.getString("prefix"));
+    public static String getPrefix() {
+        return color(GiftBoxMain.config.getString("prefix"));
     }
 
-    public static String reward() {
-        return translate(GiftBoxMain.config.getString("messages.reward"));
+    public static String getReceivedItem() {
+        return color(GiftBoxMain.config.getString("messages.received_item"));
     }
 
-    public static String inventoryFull() {
-        return translate(GiftBoxMain.config.getString("messages.inventoryFull"));
+    public static String getInventoryIsFull() {
+        return color(GiftBoxMain.config.getString("messages.inventory_is_full"));
     }
 
-    public static String noPermission() {
-        return translate(GiftBoxMain.config.getString("messages.noPermission"));
+    public static String getNoPermission() {
+        return color(GiftBoxMain.config.getString("messages.no_permission"));
     }
 
-    public static String noItem() {
-        return translate(GiftBoxMain.config.getString("messages.noItem"));
+    public static String getNoItemInGiftBox() {
+        return color(GiftBoxMain.config.getString("messages.no_item_in_giftbox"));
     }
 
-    public static String sendItem(OfflinePlayer target) {
-        return translate(GiftBoxMain.config.getString("messages.sendItem")).replaceAll("%target%", target.getName());
+    public static String getItemSent(OfflinePlayer target) {
+        return color(GiftBoxMain.config.getString("messages.item_sent"))
+                .replace("{target}", target.getPlayer().getDisplayName());
     }
 
-    public static String getItem() {
-        return translate(GiftBoxMain.config.getString("messages.getItem"));
+    public static String getHasItemInGiftBox() {
+        return color(GiftBoxMain.config.getString("messages.has_item_in_giftbox"));
     }
 
-    public static String noHandItem() {
-        return translate(GiftBoxMain.config.getString("messages.noHandItem"));
+    public static String getNoItemInHand() {
+        return color(GiftBoxMain.config.getString("messages.no_item_in_hand"));
     }
 
-    private static String translate(String msg) {
+    private static String color(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg);
     }
 }
