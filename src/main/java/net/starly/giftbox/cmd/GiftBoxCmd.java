@@ -1,7 +1,7 @@
 package net.starly.giftbox.cmd;
 
 import net.starly.giftbox.data.GiftBoxData;
-import net.starly.giftbox.data.GiftBoxPlayerData;
+import net.starly.giftbox.data.PlayerGiftBoxData;
 import net.starly.giftbox.gui.GiftBoxGUI;
 import net.starly.giftbox.util.StringData;
 import org.bukkit.Bukkit;
@@ -26,7 +26,7 @@ public class GiftBoxCmd implements CommandExecutor {
                             if (args.length > 1) {
 
                                 OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-                                GiftBoxPlayerData giftBox = new GiftBoxPlayerData(target);
+                                PlayerGiftBoxData giftBox = new PlayerGiftBoxData(target);
 
                                 giftBox.addItem(player, itemStack);
                             }

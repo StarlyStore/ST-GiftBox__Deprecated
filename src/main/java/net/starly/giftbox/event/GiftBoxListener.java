@@ -10,31 +10,29 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class GiftBoxListener implements Listener {
     @EventHandler
-    public void onClick(InventoryClickEvent event) {
-        if (event.getWhoClicked() instanceof Player player) {
-            if (GiftBoxData.giftBoxGUIHashMap.containsKey(player.getUniqueId())) {
-                int slot = event.getSlot();
-                GiftBoxGUI giftBoxGUI = GiftBoxData.giftBoxGUIHashMap.get(player.getUniqueId());
+    public void onClick(InventoryClickEvent e) {
+        Player p = (Player) e.getWhoClicked();
 
-                if (slot == giftBoxGUI.getNEXT_PAGE_SLOT()) { // 다음 페이지 클릭
-                    giftBoxGUI.nextPage(player);
-                } else if (slot == giftBoxGUI.getPREVIOUS_PAGE_SLOT()) { // 다음 페이지 클릭
-                    giftBoxGUI.previousPage(player);
-                } else if (slot == 49) {
-                    giftBoxGUI.select(player);
-                }
+        if (GiftBoxData.giftBoxGUIHashMap.containsKey(p.getUniqueId())) {
+            int slot = e.getSlot();
+            GiftBoxGUI giftBoxGUI = GiftBoxData.giftBoxGUIHashMap.get(p.getUniqueId());
 
-                event.setCancelled(true);
+            if (slot == giftBoxGUI.NEXT_PAGE_SLOT) {
+                giftBoxGUI.nextPage(p);
+            } else if (slot == giftBoxGUI.PREVIOUS_PAGE_SLOT) {
+                giftBoxGUI.previousPage(p);
+            } else if (slot == 49) {
+                giftBoxGUI.select(p);
             }
+
+            e.setCancelled(true);
         }
     }
 
     @EventHandler
-    public void onClose(InventoryCloseEvent event) {
-        if (event.getPlayer() instanceof Player player) {
-            if (GiftBoxData.giftBoxGUIHashMap.containsKey(player.getUniqueId())) {
-                GiftBoxData.giftBoxGUIHashMap.remove(player.getUniqueId());
-            }
-        }
+    public void onClose(InventoryCloseEvent e) {
+        Player p = (Player) e.getPlayer();
+
+        GiftBoxData.giftBoxGUIHashMap.remove(p.getUniqueId());
     }
 }

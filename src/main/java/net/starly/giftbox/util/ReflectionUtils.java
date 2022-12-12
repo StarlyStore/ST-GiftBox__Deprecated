@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
@@ -26,7 +25,8 @@ public class ReflectionUtils {
      */
     public static final String VERSION;
 
-    static { // This needs to be right below VERSION because of initialization order.
+    static {
+        // This needs to be right below VERSION because of initialization order.
         // This package loop is used to avoid implementation-dependant strings like Bukkit.getVersion() or Bukkit.getBukkitVersion()
         // which allows easier testing as well.
         String found = null;

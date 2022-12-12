@@ -1,7 +1,6 @@
 package net.starly.giftbox.util;
 
 
-
 import com.google.common.collect.Sets;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,7 +19,6 @@ import java.util.Set;
  * A utility class for update the inventory of a player.
  * This is useful to change the title of an inventory.
  */
-@SuppressWarnings("ConstantConditions")
 public class InventoryUpdate {
     // Classes.
     private final static Class<?> CRAFT_PLAYER;
@@ -119,9 +117,8 @@ public class InventoryUpdate {
 
             // Get InventoryView from activeContainer.
             Object bukkitView = getBukkitView.invoke(activeContainer);
-            if (!(bukkitView instanceof InventoryView)) return;
+            if (!(bukkitView instanceof InventoryView view)) return;
 
-            InventoryView view = (InventoryView) bukkitView;
             InventoryType type = view.getTopInventory().getType();
 
             // Workbenchs and anvils can change their title since 1.14.

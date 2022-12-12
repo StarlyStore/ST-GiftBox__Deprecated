@@ -1,12 +1,11 @@
 package net.starly.giftbox.gui;
 
 import net.starly.giftbox.GiftBoxMain;
-import net.starly.giftbox.data.GiftBoxPlayerData;
+import net.starly.giftbox.data.PlayerGiftBoxData;
 import net.starly.giftbox.util.InventoryUpdate;
 import net.starly.giftbox.util.Items;
 import net.starly.giftbox.util.StringData;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -24,9 +23,9 @@ public class GiftBoxGUI {
 
     private int totalPage;
 
-    private final int NEXT_PAGE_SLOT = 50;
+    public final int NEXT_PAGE_SLOT = 50;
 
-    private final int PREVIOUS_PAGE_SLOT = 48;
+    public final int PREVIOUS_PAGE_SLOT = 48;
 
     private final String title = "선물함";
 
@@ -34,7 +33,7 @@ public class GiftBoxGUI {
     private OfflinePlayer offlinePlayer;
 
 
-    private GiftBoxPlayerData giftBoxPlayerData;
+    private final PlayerGiftBoxData playerGiftBoxData;
 
     private final List<ItemStack> materials;
 
@@ -42,8 +41,8 @@ public class GiftBoxGUI {
     private List<Integer> slots = List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 47, 48, 49, 50, 51, 52, 53, 53);
 
     public GiftBoxGUI(OfflinePlayer offlinePlayer) {
-        giftBoxPlayerData = new GiftBoxPlayerData(offlinePlayer);
-        materials = giftBoxPlayerData.getItemStacks();
+        playerGiftBoxData = new PlayerGiftBoxData(offlinePlayer);
+        materials = playerGiftBoxData.getItemStacks();
     }
 
 
@@ -91,7 +90,7 @@ public class GiftBoxGUI {
 
 
                     player.getInventory().addItem(materials.get(0));
-                    giftBoxPlayerData.removeItem();
+                    playerGiftBoxData.removeItem();
                     player.sendMessage(StringData.prefix() + StringData.reward());
 
                     inv.clear();
@@ -193,14 +192,6 @@ public class GiftBoxGUI {
         if (currentPage != totalPage)
             next(); // 다음 버튼 추가
 
-    }
-
-    public int getPREVIOUS_PAGE_SLOT() {
-        return PREVIOUS_PAGE_SLOT;
-    }
-
-    public int getNEXT_PAGE_SLOT() {
-        return NEXT_PAGE_SLOT;
     }
 
 

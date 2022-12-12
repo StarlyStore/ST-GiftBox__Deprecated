@@ -10,20 +10,20 @@ import skyexcel.data.file.Config;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GiftBoxPlayerData {
+public class PlayerGiftBoxData {
 
-    private OfflinePlayer offlinePlayer;
+    private final OfflinePlayer offlinePlayer;
 
-    private Config config;
+    private final Config config;
 
     private final String path = "items";
 
-    private List<ItemStack> itemStacks;
+    private final List<ItemStack> itemStacks;
 
-    public GiftBoxPlayerData(OfflinePlayer offlinePlayer) {
+    public PlayerGiftBoxData(OfflinePlayer offlinePlayer) {
         this.offlinePlayer = offlinePlayer;
         this.config = new Config("GiftBoxData/" + offlinePlayer.getUniqueId());
-        this.config.setPlugin(GiftBoxMain.plugin);
+        this.config.setPlugin(GiftBoxMain.getPlugin());
         this.itemStacks = getItemStacks();
     }
 

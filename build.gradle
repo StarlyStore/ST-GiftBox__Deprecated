@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     //JAVA DEPENDENCIES
+    implementation "com.google.guava:guava:31.1-jre"
     compileOnly "org.jetbrains:annotations:23.0.0"
 
     //BUKKIT DEPENDENCIES
@@ -22,17 +23,10 @@ dependencies {
 
     // OTHER DEPENDENCIES
     compileOnly "net.skyexcel.core:SkyExcelCore:1.0"
-    implementation group: 'com.google.guava', name: 'guava', version: '11.0.2'
-
 }
 
 compileJava.options.encoding = 'UTF-8'
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-}
-
-
-jar {
-    destinationDirectory.set(file('D:\\Project\\minecraft\\Commission\\Servers\\1.19.2\\plugins'))
 }
