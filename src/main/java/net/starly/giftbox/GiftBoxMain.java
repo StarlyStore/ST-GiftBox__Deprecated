@@ -1,12 +1,12 @@
 package net.starly.giftbox;
 
+import net.starly.core.data.Config;
 import net.starly.giftbox.cmd.GiftBoxCmd;
 import net.starly.giftbox.cmd.GiftBoxTabComplete;
 import net.starly.giftbox.event.GiftBoxListener;
 import org.bukkit.Bukkit;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import skyexcel.data.file.Config;
 
 
 public class GiftBoxMain extends JavaPlugin {
@@ -28,7 +28,6 @@ public class GiftBoxMain extends JavaPlugin {
 
         //Config
         config = new Config("config");
-        config.setPlugin(plugin);
         config.loadDefaultPluginConfig();
     }
 

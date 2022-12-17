@@ -1,11 +1,11 @@
 package net.starly.giftbox.data;
 
+import net.starly.core.data.Config;
 import net.starly.giftbox.GiftBoxMain;
 import net.starly.giftbox.util.MessageUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import skyexcel.data.file.Config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,6 @@ public class PlayerGiftBoxData {
     public PlayerGiftBoxData(OfflinePlayer offlinePlayer) {
         this.offlinePlayer = offlinePlayer;
         this.config = new Config("GiftBoxData/" + offlinePlayer.getUniqueId());
-        this.config.setPlugin(GiftBoxMain.getPlugin());
         this.itemStacks = getItemStacks();
     }
 
