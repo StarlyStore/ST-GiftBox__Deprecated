@@ -5,10 +5,6 @@ author: Starly Team
 version: 1.0
 api-version: 1.16
 
-#의존성
-depend:
-  - ST-Core
-
 commands:
   선물함:
     aliases: [ giftbox ]

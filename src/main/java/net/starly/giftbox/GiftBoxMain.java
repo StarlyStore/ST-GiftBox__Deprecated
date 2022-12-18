@@ -17,6 +17,13 @@ public class GiftBoxMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        if (Bukkit.getPluginManager().getPlugin("ST-Core") == null) {
+            Bukkit.getLogger().warning("[" + plugin.getName() + "] ST-Core 플러그인이 적용되지 않았습니다! 플러그인을 비활성화합니다.");
+            Bukkit.getLogger().warning("[" + plugin.getName() + "] 다운로드 링크 : &fhttps://discord.gg/TF8jqSJjCG");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
         plugin = this;
 
         //Command
