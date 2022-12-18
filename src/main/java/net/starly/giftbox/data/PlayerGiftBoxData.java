@@ -22,7 +22,7 @@ public class PlayerGiftBoxData {
 
     public PlayerGiftBoxData(OfflinePlayer offlinePlayer) {
         this.offlinePlayer = offlinePlayer;
-        this.config = new Config("GiftBoxData/" + offlinePlayer.getUniqueId());
+        this.config = new Config("GiftBoxData/" + offlinePlayer.getUniqueId(), GiftBoxMain.getPlugin());
         this.itemStacks = getItemStacks();
     }
 

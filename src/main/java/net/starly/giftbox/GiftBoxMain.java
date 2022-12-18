@@ -34,7 +34,7 @@ public class GiftBoxMain extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new GiftBoxListener(), plugin);
 
         //Config
-        config = new Config("config");
+        config = new Config("config", plugin);
         config.loadDefaultPluginConfig();
     }
 
