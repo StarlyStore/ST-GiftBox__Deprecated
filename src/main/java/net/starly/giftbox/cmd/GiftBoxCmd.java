@@ -52,6 +52,25 @@ public class GiftBoxCmd implements CommandExecutor {
 
             new PlayerGiftBoxData(target).addItem(p, itemStack);
             return true;
+        } else if ("모두지급".equals(args[0])) {
+            if (!p.hasPermission("starly.giftbox.sendall")) {
+                p.sendMessage(MessageUtil.getNoPermission());
+                return false;
+            }
+
+            if (args.length != 1) {
+                p.sendMessage(MessageUtil.getWrongCommand());
+                return false;
+            }
+
+            ItemStack itemStack = p.getInventory().getItemInMainHand();
+            if (itemStack.getType().equals(Material.AIR)) {
+                p.sendMessage(MessageUtil.getNoItemInHand());
+                return false;
+            }
+
+            Bukkit.getOnlinePlayers().forEach(player -> new PlayerGiftBoxData(player).addItem(p, itemStack));
+            return true;
         } else if ("보기".equals(args[0])) {
             if (args.length == 1) {
                 if (!p.hasPermission("starly.giftbox.view.self")) {
