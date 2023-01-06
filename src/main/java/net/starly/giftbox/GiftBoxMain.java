@@ -1,5 +1,6 @@
 package net.starly.giftbox;
 
+import net.starly.core.bstats.Metrics;
 import net.starly.core.data.Config;
 import net.starly.giftbox.cmd.GiftBoxCmd;
 import net.starly.giftbox.cmd.GiftBoxTabComplete;
@@ -17,6 +18,7 @@ public class GiftBoxMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // DEPENDENCY
         if (Bukkit.getPluginManager().getPlugin("ST-Core") == null) {
             Bukkit.getLogger().warning("[" + plugin.getName() + "] ST-Core 플러그인이 적용되지 않았습니다! 플러그인을 비활성화합니다.");
             Bukkit.getLogger().warning("[" + plugin.getName() + "] 다운로드 링크 : &fhttps://discord.gg/TF8jqSJjCG");
@@ -26,16 +28,21 @@ public class GiftBoxMain extends JavaPlugin {
 
         plugin = this;
 
-        //Command
+        new Metrics(this, 17175);
+
+
+        // CONFIG
+        config = new Config("config", plugin);
+        config.loadDefaultPluginConfig();
+
+
+        // COMMAND
         Bukkit.getPluginCommand("선물함").setExecutor(new GiftBoxCmd());
         Bukkit.getPluginCommand("선물함").setTabCompleter(new GiftBoxTabComplete());
 
-        //Listener
-        Bukkit.getPluginManager().registerEvents(new GiftBoxListener(), plugin);
 
-        //Config
-        config = new Config("config", plugin);
-        config.loadDefaultPluginConfig();
+        // EVENT
+        Bukkit.getPluginManager().registerEvents(new GiftBoxListener(), plugin);
     }
 
     public static JavaPlugin getPlugin() {
